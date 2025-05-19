@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:note/views/edit_note_view.dart';
 
+import '../../cubits/note_cubit/note_cubit.dart';
 import '../../models/note_model.dart';
 
 class NoteItem extends StatelessWidget {
@@ -15,7 +17,7 @@ class NoteItem extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const EditNoteView(),
+            builder: (context) =>  EditNoteView(note: note,),
           ),);
       },
       child: Container(
@@ -29,7 +31,7 @@ class NoteItem extends StatelessWidget {
           children: [
             ListTile(
               title:  Text(
-                note.subtitle,
+                note.title,
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.black,
@@ -39,7 +41,7 @@ class NoteItem extends StatelessWidget {
               subtitle: Padding(
                 padding: const EdgeInsets.only(top: 16, bottom: 16),
                 child: Text(
-                  note.title,
+                  note.subtitle,
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.black.withValues(alpha: 0.5),
@@ -51,6 +53,7 @@ class NoteItem extends StatelessWidget {
                 child: IconButton(
                   onPressed: () {
                     note.delete();
+                    BlocProvider.of<NoteCubit>(context).fetchNotes();
                   },
                   icon: const Icon(
                     FontAwesomeIcons.trash,

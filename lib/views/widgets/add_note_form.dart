@@ -5,8 +5,9 @@ import 'package:intl/intl.dart';
 import '../../cubits/cubit_add_note/add_note_cubit.dart';
 import '../../cubits/cubit_add_note/add_note_state.dart';
 import '../../models/note_model.dart';
+import 'color_item.dart';
 import 'custom_button.dart';
-import 'custom_text_field.dart';
+import 'custom_text_form_field.dart';
 
 class AddNoteForm extends StatefulWidget {
   const AddNoteForm({super.key});
@@ -28,20 +29,22 @@ class _AddNoteFormState extends State<AddNoteForm> {
       child: Column(
         children: [
           const SizedBox(height: 20),
-          CustomTextField(
+          CustomTextFormField(
             hintText: 'Title',
             onSaved: (value) {
               title = value;
             },
           ),
           const SizedBox(height: 20),
-          CustomTextField(
+          CustomTextFormField(
             hintText: 'Content',
             maxLines: 5,
             onSaved: (value) {
               subtitle = value;
             },
           ),
+          const SizedBox(height: 20),
+          ColorsList(),
           const SizedBox(height: 30),
           BlocBuilder<AddNoteCubit, AddNoteState>(
             builder: (context, state) {
@@ -72,3 +75,5 @@ class _AddNoteFormState extends State<AddNoteForm> {
     );
   }
 }
+
+
